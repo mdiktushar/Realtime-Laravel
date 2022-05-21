@@ -23,8 +23,8 @@ class UserSessionChanged implements ShouldBroadcast
      */
     public function __construct($message, $type)
     {
-        $this->$message = $message;
-        $this->$type = $type;
+        $this->message = $message;
+        $this->type = $type;
     }
 
     /**
@@ -34,9 +34,8 @@ class UserSessionChanged implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        // return new PrivateChannel('channel-name');
-        \Log::debug($this->message);
-        \Log::debug($this->type);
-        return new Channel('notifications');
+        // \Log::debug($this->message);
+        // \Log::debug($this->type);
+        return new PrivateChannel('notifications');
     }
 }
