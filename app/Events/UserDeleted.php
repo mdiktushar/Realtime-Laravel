@@ -10,9 +10,11 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
+use App\Models\User;
+
 class UserDeleted implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets;
     
     public $user;
     /**
@@ -32,6 +34,7 @@ class UserDeleted implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+        \Log::debug("Delete {$this->user->name}");
         return new Channel('users');
     }
 }
