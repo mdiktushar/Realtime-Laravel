@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Events\MessageSent;
 
 class ChatController extends Controller
 {
@@ -20,5 +21,15 @@ class ChatController extends Controller
     public function showChat(Type $var = null)
     {
         return view('chat.show');
+    }
+
+    public function messageReceived(Request $request)
+    {
+        $request->validate([
+            'message' => 'required',
+        ]);
+
+        broadcast(new MessageSent($request->user(), $request->message));
+        return response()->json(['Message Broadcasted'], 200);
     }
 }
