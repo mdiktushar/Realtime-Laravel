@@ -121,4 +121,14 @@
 }
 </script>
 
+<script>
+    Echo.private('chat.greet.{{ auth()->user()->id }}')
+        .listen('GretingSent', (e) => {
+            let element = document.createElement('li')
+            element.innerText = e.message
+            element.classList.add('text-success')
+            messagesElement.appendChild(element)
+    })
+</script>
+
 @endpush
